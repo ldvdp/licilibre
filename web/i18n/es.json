@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "alertas": "Mis alertas",
+    "sobre": "Sobre licilibre",
+    "api": "API"
+  },
+  "tagline": "Todas las licitaciones públicas de España y la UE. Gratis. Sin registro.",
+  "search": {
+    "placeholder": "Busca por palabras clave, organismo, código CPV, sector…",
+    "boton": "Buscar",
+    "limpiar": "Limpiar",
+    "resultados": "{n} licitaciones",
+    "sin_resultados": "Sin resultados",
+    "sin_resultados_desc": "Prueba con otras palabras clave o cambia los filtros",
+    "actualizado": "Actualizado hace {t}"
+  },
+  "filtros": {
+    "todas": "Todas",
+    "urgencia": "Urgencia",
+    "urgent": "Urgente ≤5d",
+    "aviat": "Pronto ≤15d",
+    "ample": "Amplio +15d",
+    "fuente": "Fuente",
+    "tipo": "Tipo",
+    "ccaa": "Comunidad",
+    "ordenar_por": "Ordenar por",
+    "orden_dies": "Cierra antes",
+    "orden_pressupost": "Mayor importe",
+    "orden_recent": "Más recientes"
+  },
+  "card": {
+    "dias_restants": "{n} días",
+    "dia_restant": "1 día",
+    "ayer": "Ayer",
+    "cerrada": "Cerrada",
+    "seguir": "Seguir",
+    "dejar_seguir": "Dejar de seguir",
+    "ver_convocatoria": "Ver convocatoria oficial",
+    "base_iva": "base sin IVA",
+    "publicado": "Pub.",
+    "cierre": "Cierre"
+  },
+  "detalle": {
+    "informacion": "Información de la licitación",
+    "organismo": "Organismo contratante",
+    "tipo_contrato": "Tipo de contrato",
+    "procedimiento": "Procedimiento",
+    "presupuesto": "Presupuesto base (sin IVA)",
+    "valor_estimado": "Valor estimado",
+    "cpv": "Código(s) CPV",
+    "fechas": "Fechas",
+    "publicacion": "Publicación",
+    "presentacion": "Límite presentación",
+    "adjudicacion": "Adjudicación",
+    "estado": "Estado",
+    "fuente": "Fuente de datos",
+    "expediente": "Número de expediente",
+    "documentos": "Documentos",
+    "ver_plec": "Ver pliego de condiciones",
+    "ver_anuncio": "Ver anuncio oficial",
+    "ver_plataforma": "Ver en plataforma original",
+    "alerta": "Crear alerta para este organismo",
+    "compartir": "Compartir"
+  },
+  "alertas": {
+    "titulo": "Alertas personalizadas",
+    "descripcion": "Recibe un email cuando salgan nuevas licitaciones que encajen con tus criterios.",
+    "email": "Tu email",
+    "email_placeholder": "nombre@empresa.com",
+    "palabras_clave": "Palabras clave",
+    "palabras_clave_placeholder": "audiovisual, fotografia, comunicació…",
+    "cpv": "Códigos CPV",
+    "organismo": "Organismo",
+    "ccaa": "Comunidad autónoma",
+    "importe_min": "Importe mínimo (€)",
+    "importe_max": "Importe máximo (€)",
+    "frecuencia": "Frecuencia",
+    "frecuencia_diaria": "Resumen diario (08:00h)",
+    "frecuencia_inmediata": "Inmediata (cada publicación)",
+    "crear": "Crear alerta",
+    "creada": "¡Alerta creada! Revisa tu email para confirmar.",
+    "error": "Error al crear la alerta. Inténtalo de nuevo.",
+    "gratuita": "Gratis, sin registro, cancela cuando quieras"
+  },
+  "sobre": {
+    "titulo": "Sobre licilibre",
+    "p1": "licilibre es una plataforma open source que agrega todas las licitaciones públicas de España y la UE en un solo lugar, de forma gratuita y sin registro.",
+    "p2": "Los datos son públicos por ley. Hay empresas que cobran por darte acceso a información que ya es tuya. Esto existe para que eso no tenga sentido.",
+    "fuentes": "Fuentes de datos",
+    "contribuir": "Contribuir",
+    "github": "Ver en GitHub",
+    "licencia": "Licencia MIT — Haz lo que quieras con esto."
+  },
+  "footer": {
+    "datos": "Datos de",
+    "actualizacion": "Actualizado cada 24h",
+    "gratuito": "100% gratuito · Sin registro",
+    "open_source": "Open source",
+    "idiomas": "Idiomas"
+  },
+  "idiomas": {
+    "es": "Castellano",
+    "ca": "Català",
+    "eu": "Euskara",
+    "gl": "Galego",
+    "en": "English"
+  }
+}

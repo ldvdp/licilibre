@@ -1,0 +1,21 @@
+{
+  "name": "licilibre-scripts",
+  "version": "1.0.0",
+  "description": "Scripts de fetch i normalització de licitacions públiques",
+  "type": "module",
+  "scripts": {
+    "fetch:place": "node fetch-place.js",
+    "fetch:ted": "node fetch-ted.js",
+    "fetch:all": "node fetch-place.js && node fetch-ted.js && node fetch-pscp-cat.js",
+    "fetch:dry": "node fetch-place.js --dry-run && node fetch-ted.js --dry-run",
+    "alerts": "node send-alerts.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "fast-xml-parser": "^4.4.0",
+    "resend": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
