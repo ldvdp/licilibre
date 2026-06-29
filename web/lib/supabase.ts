@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Client creat lazily per evitar errors durant el build
-let _client = null;
+let _client: any = null;
 function getClient() {
   if (_client) return _client;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
