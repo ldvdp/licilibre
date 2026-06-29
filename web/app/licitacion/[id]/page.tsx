@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // licilibre · web/app/licitacion/[id]/page.tsx
 
 import { getLicitacio } from '@/lib/supabase';

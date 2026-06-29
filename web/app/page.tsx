@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 ﻿import { Suspense } from 'react';
 import { cercarLicitacions } from '@/lib/supabase';
 import type { FiltresRecerca } from '@/lib/types';
