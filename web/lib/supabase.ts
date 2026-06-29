@@ -9,8 +9,8 @@ const supabase = createClient(
 export async function cercarLicitacions(filtres: FiltresRecerca): Promise<ResultatRecerca> {
   const { q, ccaa, fuente, urgencia, order = 'dies', limit = 20, offset = 0 } = filtres;
   let query = supabase.from('licitaciones_actives').select('*', { count: 'exact' });
-  if (q?.trim()) query = query.or(	itulo.ilike.%%,organismo.ilike.%%);
-  if (ccaa) query = query.ilike('ccaa', %%);
+  if (q?.trim()) query = query.or(`titulo.ilike.%${q}%,organismo.ilike.%${q}%`);
+  if (ccaa) query = query.ilike('ccaa', `%${ccaa}%`);
   if (fuente) query = query.eq('fuente', fuente);
   if (urgencia) query = query.eq('urgencia', urgencia);
   if (order === 'pressupost') query = query.order('pressupost_base', { ascending: false, nullsFirst: false });
