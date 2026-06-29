@@ -83,4 +83,4 @@ export default async function HomePage({ searchParams }: PageProps) {
   );
 }
 
-export const revalidate = 3600;
+export const revalidate = 0;
