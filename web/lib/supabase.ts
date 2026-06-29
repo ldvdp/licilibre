@@ -1,55 +1,58 @@
-﻿import { createClient } from '@supabase/supabase-js';
-import type { FiltresRecerca, Licitacio, ResultatRecerca } from './types';
+import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Client creat lazily per evitar errors durant el build
+let _client = null;
+function getClient() {
+  if (_client) return _client;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  _client = createClient(url, key);
+  return _client;
+}
 
-export async function cercarLicitacions(filtres: FiltresRecerca): Promise<ResultatRecerca> {
-  const { q, ccaa, fuente, urgencia, order = 'dies', limit = 20, offset = 0 } = filtres;
-  let query = supabase.from('licitaciones_actives').select('*', { count: 'exact' });
-  if (q && q.trim()) {
-    query = query.or('titulo.ilike.%' + q + '%,organismo.ilike.%' + q + '%');
+export async function cercarLicitacions(filtres) {
+  const supabase = getClient();
+  if (!supabase) return { licitacions: [], total: 0, pagina: 1, per_pagina: 20 };
+  const { q, ccaa, fuente, urgencia, order, limit = 20, offset = 0 } = filtres;
+  try {
+    let query = supabase.from('licitaciones_actives').select('*', { count: 'exact' });
+    if (q && q.trim()) {
+      const qs = q.trim();
+      query = query.or('titulo.ilike.%' + qs + '%,organismo.ilike.%' + qs + '%');
+    }
+    if (ccaa) query = query.ilike('ccaa', '%' + ccaa + '%');
+    if (fuente) query = query.eq('fuente', fuente);
+    if (urgencia) query = query.eq('urgencia', urgencia);
+    if (order === 'pressupost') query = query.order('pressupost_base', { ascending: false, nullsFirst: false });
+    else if (order === 'recent') query = query.order('data_publicacio', { ascending: false });
+    else query = query.order('dies_restants', { ascending: true, nullsFirst: false });
+    const { data, error, count } = await query.range(offset, offset + limit - 1);
+    if (error) { console.error('Supabase error:', error); return { licitacions: [], total: 0, pagina: 1, per_pagina: limit }; }
+    return { licitacions: data || [], total: count || 0, pagina: Math.floor(offset / limit) + 1, per_pagina: limit };
+  } catch (e) {
+    console.error('cercarLicitacions error:', e);
+    return { licitacions: [], total: 0, pagina: 1, per_pagina: limit };
   }
-  if (ccaa) query = query.ilike('ccaa', '%' + ccaa + '%');
-  if (fuente) query = query.eq('fuente', fuente);
-  if (urgencia) query = query.eq('urgencia', urgencia);
-  if (order === 'pressupost') query = query.order('pressupost_base', { ascending: false, nullsFirst: false });
-  else if (order === 'recent') query = query.order('data_publicacio', { ascending: false });
-  else query = query.order('dies_restants', { ascending: true, nullsFirst: false });
-  query = query.range(offset, offset + limit - 1);
-  const { data, error, count } = await query;
-  if (error) throw error;
-  return {
-    licitacions: (data || []) as Licitacio[],
-    total: count || 0,
-    pagina: Math.floor(offset / limit) + 1,
-    per_pagina: limit,
-  };
 }
 
-export async function getLicitacio(id: string): Promise<Licitacio | null> {
-  const { data, error } = await supabase
-    .from('licitaciones')
-    .select('*')
-    .eq('id', id)
-    .single();
-  if (error) return null;
-  return data as Licitacio;
+export async function getLicitacio(id) {
+  const supabase = getClient();
+  if (!supabase) return null;
+  try {
+    const { data, error } = await supabase.from('licitaciones').select('*').eq('id', id).single();
+    if (error) return null;
+    return data;
+  } catch (e) { return null; }
 }
 
-export async function createAlerta(alerta: {
-  email: string;
-  paraules_clau?: string[];
-  ccaas?: string[];
-  frequencia?: string;
-}) {
+export async function createAlerta(alerta) {
+  const supabase = getClient();
+  if (!supabase) throw new Error('Supabase no disponible');
   const { data, error } = await supabase
     .from('alertes')
     .insert({ ...alerta, frequencia: alerta.frequencia || 'diaria' })
-    .select('id')
-    .single();
+    .select('id').single();
   if (error) throw error;
   return data;
 }
